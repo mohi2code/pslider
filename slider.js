@@ -1,10 +1,87 @@
-let slider      = document.querySelector("#slider")
-let sliderImage = document.querySelector(".slider-image")
-let currImage   = document.currImage
-let larrow = document.querySelector(".larrow")
-let rarrow = document.querySelector(".rarrow")
+/*
+ * Initializing html elements and their styles
+ */
 
-images = ["/images/ape1.jpeg", "/images/ape2.jpeg"]
+let container = document.createElement("div")
+let header = document.createElement('h1')
+let slider = document.createElement('div')
+let larrow = document.createElement('span')
+let rarrow = document.createElement('span')
+let currImage   = document.createElement('img')
+
+container.style = `
+    height: 100vh; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+`
+header.style = `
+    text-align: center;
+    padding: 2.5rem 0;
+    text-transform: uppercase;
+    letter-spacing: .25em;
+    font-size: .95em;
+`
+slider.style = `
+    position: relative;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 0;
+`
+larrow.style = `
+    cursor: pointer;
+    font-size: 5em;
+    padding: .5rem;
+    background-color: #444;
+    color: #f8f9ff;
+    border-radius: .5rem;
+    position: absolute;
+    top: 45%;
+    left: 1rem;
+`
+rarrow.style = `
+    cursor: pointer;
+    font-size: 5em;
+    padding: .5rem;
+    background-color: #444;
+    color: #f8f9ff;
+    border-radius: .5rem;
+    position: absolute;
+    top: 45%;
+    right: 1rem;
+`
+currImage.style = `
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    max-height: 500px;
+    border-radius: 1rem;
+`
+document.body.onload = () => {
+    header.appendChild(document.createTextNode("Plain javascript slider"))
+
+    larrow.appendChild(document.createTextNode("<"))
+    rarrow.appendChild(document.createTextNode(">"))
+
+    currImage.src="/images/ape1.jpeg"
+
+    container.appendChild(header)
+    container.appendChild(currImage)
+    container.appendChild(larrow)
+    container.appendChild(rarrow)
+
+    document.getElementById("root").appendChild(container)
+}
+
+
+/*
+ * slider functionality 
+ */
+
+images = ["/images/ape1.jpeg", "/images/ape2.jpeg", "/images/ape3.jpeg"]
 let imageIndex = 0
 
 currImage.src = images[imageIndex]  // set initial image
@@ -27,13 +104,16 @@ larrow.onclick = ()=>{  // left arrow onclick listener
     updateCurrImage()
 }
 
-// update current image "src" attribute
-function updateCurrImage() {
+
+function updateCurrImage() {    // update current image "src" attribute
     currImage.src = images[imageIndex]
 }
 
+updateCurrImage()
+
+
 /*
- *  handle responsive behavior
+ * responsive behavior
  */
 
 // mobile devices
@@ -42,8 +122,9 @@ mediaQueryXS.addEventListener("change", xs)
 
 function xs(e) {
     if (e.matches) {
-        sliderImage.style = "width: 100%"
-        currImage.style = "border-radius: 0"
+        container.style['padding'] = 0
+        currImage.style['border-radius'] =  0
+        currImage.style['width'] = "100%"
     }
 }
 
@@ -55,8 +136,8 @@ mediaQueryMedium.addEventListener("change", medium)
 
 function medium(e) {
     if (e.matches) {
-        sliderImage.style = "width: 75%"
-        currImage.style = "border-radius: 1rem"
+        currImage.style["width"] = "75%"
+        currImage.style["border-radius"] = "1rem"
     }
 }
 
@@ -69,7 +150,7 @@ mediaQueryLarge.addEventListener("change", large)
 
 function large(e) {
     if (e.matches)
-        sliderImage.style = "width: 50%"
+        currImage.style["width"] = "50%"
 }
 
 large(mediaQueryLarge)

@@ -59,6 +59,8 @@ currImage.style = `
     height: 100%;
     max-height: 500px;
     border-radius: 1rem;
+
+    transition: opacity .25s; 
 `
 document.body.onload = () => {
     header.appendChild(document.createTextNode("Plain javascript slider"))
@@ -87,12 +89,17 @@ let imageIndex = 0
 currImage.src = images[imageIndex]  // set initial image
 
 rarrow.onclick = ()=>{  // right arrow onclick listener 
-    if (imageIndex+1 > images.length-1)
+    if (imageIndex+1 > images.length-1) 
         imageIndex = 0
     else 
         imageIndex++
 
-    updateCurrImage()
+    currImage.style.opacity = 0
+    setTimeout(() => {
+        updateCurrImage()
+        currImage.style.opacity = 1
+    }, 250)
+    
 }
 
 larrow.onclick = ()=>{  // left arrow onclick listener
@@ -101,7 +108,11 @@ larrow.onclick = ()=>{  // left arrow onclick listener
     else 
         imageIndex--
 
-    updateCurrImage()
+    currImage.style.opacity = 0
+    setTimeout(() => {
+        updateCurrImage()
+        currImage.style.opacity = 1
+    }, 250)
 }
 
 

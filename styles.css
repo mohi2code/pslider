@@ -11,6 +11,10 @@ body {
     color: #f8f9ff;
 }
 
+.container {
+    height: 100vh;
+}
+
 .container h1 {
     text-align: center;
     padding: 2.5rem 0;
